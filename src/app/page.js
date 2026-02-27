@@ -12,7 +12,7 @@ const PROFILE = {
   email: "akhilvinnakota123@gmail.com",
   phone: "+91-8143363736",
   linkedin: "https://www.linkedin.com/in/akhilvinnakota60/",
-  github: "https://github.com/Akhilvinnakota",
+  github: "https://github.com/akhilvinnakota123-sketch",
   bio: "MBA candidate and Software Engineer with strong product thinking, user-centric mindset, and experience driving AI-led automation initiatives. Skilled in defining KPIs, shaping feature requirements, and partnering across teams to deliver scalable, impactful products.",
   avatar: "AV",
   photo: "/profile.jpeg",

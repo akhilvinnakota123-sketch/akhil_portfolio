@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#ffffff"/>
+  <!-- Outer dashed ring: alternating orange and black segments -->
+  <circle cx="100" cy="95" r="72" fill="none" stroke="#e07820" stroke-width="10" stroke-dasharray="22,6" stroke-dashoffset="0"/>
+  <circle cx="100" cy="95" r="72" fill="none" stroke="#111111" stroke-width="10" stroke-dasharray="6,22" stroke-dashoffset="-22"/>
+  <!-- Inner petal ellipses (4 rotations) -->
+  <ellipse cx="100" cy="95" rx="20" ry="44" fill="none" stroke="#c8401a" stroke-width="3.5"/>
+  <ellipse cx="100" cy="95" rx="20" ry="44" fill="none" stroke="#c8401a" stroke-width="3.5" transform="rotate(45 100 95)"/>
+  <ellipse cx="100" cy="95" rx="20" ry="44" fill="none" stroke="#c8401a" stroke-width="3.5" transform="rotate(90 100 95)"/>
+  <ellipse cx="100" cy="95" rx="20" ry="44" fill="none" stroke="#c8401a" stroke-width="3.5" transform="rotate(135 100 95)"/>
+  <!-- Center star dot -->
+  <circle cx="100" cy="95" r="7" fill="#c8401a"/>
+  <circle cx="100" cy="95" r="3" fill="#ffffff"/>
+  <!-- NPTEL text -->
+  <text x="100" y="186" fill="#1a1a1a" font-family="Arial Black,Arial,sans-serif" font-size="22" font-weight="900" text-anchor="middle" letter-spacing="4">NPTEL</text>
+</svg>

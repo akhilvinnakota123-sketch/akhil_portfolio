@@ -1,161 +1,594 @@
 "use client";
 
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import "./DIYPortfolioForm.css";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import "./portfolio.css";
 
-const schema = yup.object().shape({
-  userId: yup.string().required(),
-  name: yup.string().required(),
-  bio: yup.string(),
-  profileImage: yup.string().url(),
-  topPicks: yup.array().of(yup.string()),
-  skills: yup.array().of(
-    yup.object().shape({
-      name: yup.string().required(),
-      iconUrl: yup.string().url().required(),
-    })
-  ),
-  projects: yup.array().of(
-    yup.object().shape({
-      title: yup.string().required(),
-      description: yup.string(),
-      imageUrl: yup.string().url(),
-    })
-  ),
-  email: yup.string().email(),
-  linkedin: yup.string().url(),
-  github: yup.string().url(),
-});
-
-const DIYPortfolioForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      userId: "",
-      name: "",
-      bio: "",
-      profileImage: "",
-      topPicks: Array(6).fill(""),
-      skills: [{ name: "", iconUrl: "" }],
-      projects: [{ title: "", description: "", imageUrl: "" }],
-      email: "",
-      linkedin: "",
-      github: "",
-    },
-  });
-
-  const [loading, setLoading] = useState(false);
-
-  const onSubmit = async (data) => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        "https://diy-netflix-portfolio-backend.vercel.app/api/createDatoCmsContent",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
-
-      const result = await response.json();
-      console.log("🚀 ~ onSubmit ~ result:", result);
-
-      if (result.success) {
-        alert("✅ Portfolio created successfully!");
-      } else {
-        alert("⚠️ Something went wrong. Check console.");
-        console.error(result.error);
-      }
-    } catch (error) {
-      alert("❌ Error submitting form");
-      console.error("Submission error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="form-container">
-      <form className="diy-form" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="form-title">
-          🎬 Create Your Netflix-Inspired Portfolio
-        </h2>
-
-        <section className="form-section">
-          <h3>Basic Info</h3>
-          <div className="form-grid">
-            <input {...register("userId")} placeholder="Unique User ID" />
-            <input {...register("name")} placeholder="Full Name" />
-            <textarea {...register("bio")} placeholder="Short Bio" />
-            <input
-              {...register("profileImage")}
-              placeholder="Profile Image URL"
-            />
-          </div>
-        </section>
-
-        <section className="form-section">
-          <h3>Top Picks</h3>
-          <div className="form-grid">
-            {[...Array(6)].map((_, index) => (
-              <input
-                key={index}
-                {...register(`topPicks.${index}`)}
-                placeholder={`Top Pick ${index + 1}`}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="form-section">
-          <h3>Skills</h3>
-          <div className="form-grid">
-            <input {...register(`skills.0.name`)} placeholder="Skill Name" />
-            <input {...register(`skills.0.iconUrl`)} placeholder="Icon URL" />
-          </div>
-        </section>
-
-        <section className="form-section">
-          <h3>Projects</h3>
-          <div className="form-grid">
-            <input
-              {...register(`projects.0.title`)}
-              placeholder="Project Title"
-            />
-            <textarea
-              {...register(`projects.0.description`)}
-              placeholder="Project Description"
-            />
-            <input
-              {...register(`projects.0.imageUrl`)}
-              placeholder="Image URL"
-            />
-          </div>
-        </section>
-
-        <section className="form-section">
-          <h3>Contact Info</h3>
-          <div className="form-grid">
-            <input {...register("email")} placeholder="Email" />
-            <input {...register("linkedin")} placeholder="LinkedIn URL" />
-            <input {...register("github")} placeholder="GitHub URL" />
-          </div>
-        </section>
-
-        <button type="submit" className="submit-button" disabled={loading}>
-          {loading ? "🚀 Creating Portfolio..." : "🚀 Create My Portfolio"}
-        </button>
-      </form>
-    </div>
-  );
+// ─────────────────────────── DATA ───────────────────────────
+const PROFILE = {
+  name: "Akhil Vinnakota",
+  title: "Product Developer & MBA Candidate",
+  location: "Bengaluru, India",
+  email: "akhilvinnakota123@gmail.com",
+  phone: "+91-8143363736",
+  linkedin: "https://www.linkedin.com/in/akhilvinnakota60/",
+  github: "https://github.com/Akhilvinnakota",
+  bio: "MBA candidate and Software Engineer with strong product thinking, user-centric mindset, and experience driving AI-led automation initiatives. Skilled in defining KPIs, shaping feature requirements, and partnering across teams to deliver scalable, impactful products.",
+  avatar: "AV",
+  photo: "/profile.jpeg",
 };
 
-export default DIYPortfolioForm;
+const ACHIEVEMENTS = [
+  {
+    icon: "🚀",
+    metric: "40%+",
+    label: "Engagement Boost",
+    description:
+      "Increased travel agent engagement by launching an AI productivity copilot, resulting in rapid user adoption.",
+    color: "#3b82f6",
+  },
+  {
+    icon: "⚡",
+    metric: "3d → 1h",
+    label: "QA Time Slashed",
+    description:
+      "Reduced QA validation time from 3 days to 1 hour by delivering a self-service XML validation tool adopted across teams.",
+    color: "#60a5fa",
+  },
+  {
+    icon: "🏆",
+    metric: "Innovation Award",
+    label: "Industry Recognition",
+    description:
+      "Won the Innovation Award for building a self-service XML validation platform for nested XSDs.",
+    color: "#93c5fd",
+  },
+  {
+    icon: "📊",
+    metric: "KPIs",
+    label: "Metrics Defined",
+    description:
+      "Defined success metrics, KPIs, and prioritization criteria for automation and GenAI-led product initiatives.",
+    color: "#bfdbfe",
+  },
+];
+
+const EXPERIENCE = [
+  {
+    role: "Product Developer",
+    company: "Amadeus",
+    location: "Bengaluru, India",
+    period: "Jul 2024 – Present",
+    type: "Full-time",
+    isCurrent: true,
+    color: "#3b82f6",
+    points: [
+      "Launched an AI-driven copilot chatbot for airline agents, increasing efficiency and driving higher user engagement.",
+      "Translated business objectives into scalable engineering solutions aligned with KPIs and product goals.",
+      "Developed data-driven automation workflows using GenAI, NLP, and RAG for operational intelligence.",
+      "Migrated microservices to Azure, improving reliability, scalability, and security.",
+      "Collaborated with engineering, product, and analytics teams to define performance metrics and track impact.",
+    ],
+  },
+  {
+    role: "Software Developer Intern",
+    company: "Amadeus",
+    location: "Bengaluru, India",
+    period: "Jan 2024 – Jul 2024",
+    type: "Internship",
+    isCurrent: false,
+    color: "#60a5fa",
+    points: [
+      "Developed tools and microservices using Java, Quarkus, Python, and MongoDB.",
+      "Built a self-service XML validation platform for nested XSDs, improving efficiency and winning the Innovation Award.",
+      "Defined success metrics, functional requirements, and delivery plans with product teams.",
+      "Improved API reliability and optimized validation logic across services.",
+    ],
+  },
+];
+
+const EDUCATION = [
+  {
+    degree: "MBA",
+    institution: "Manipal Academy of Higher Education (MAHE)",
+    period: "Feb 2025 – Apr 2027",
+    gpa: "9.6 / 10",
+    icon: "🎓",
+    color: "#3b82f6",
+  },
+  {
+    degree: "B.Tech (Honours)",
+    institution: "Raghu Engineering College",
+    period: "Jan 2020 – Apr 2024",
+    gpa: "8.6 / 10",
+    icon: "⚙️",
+    color: "#60a5fa",
+  },
+];
+
+const SKILLS = {
+  "Programming Languages": ["Java", "Python", "C", "JavaScript", "SQL", "HTML"],
+  "Frameworks": ["Spring Boot", "Quarkus", "Angular"],
+  "Cloud & DevOps": ["Azure", "Docker", "Kubernetes", "Jenkins (CI/CD)"],
+  "Databases & Integration": ["MongoDB", "SQL", "REST APIs", "JSON / XML / XSD", "Kafka"],
+  "AI & Automation": ["GenAI", "NLP Chatbots", "RAG Pipelines", "Productivity Copilots"],
+  "Tools": ["Git", "Postman", "JIRA", "Figma", "Excel Analytics"],
+};
+
+const SOFT_SKILLS = [
+  "Product Thinking", "Analytical Reasoning", "Problem Solving",
+  "Strategic Planning", "Leadership", "Collaboration",
+  "Stakeholder Management", "Communication", "Data-Driven Decision Making",
+];
+
+const CERTIFICATIONS = [
+  {
+    name: "AWS Cloud Virtual Internship",
+    issuer: "AICTE",
+    icon: "☁️",
+    logoUrl: "/logo-aicte.jpeg",
+    logoBg: "#ffffff",
+  },
+  {
+    name: "Responsive Website Development",
+    issuer: "University of London",
+    icon: "🌐",
+    logoUrl: "/logo-ulon.jpeg",
+    logoBg: "#ffffff",
+  },
+  {
+    name: "Java FullStack",
+    issuer: "Wipro",
+    icon: "💼",
+    logoUrl: "/logo-wipro.png",
+    logoBg: "#ffffff",
+  },
+  {
+    name: "Python Programming",
+    issuer: "University of Michigan",
+    icon: "🐍",
+    logoUrl: "/logo-umich.png",
+    logoBg: "#00274c",
+  },
+  {
+    // Kubernetes: SimpleIcons blue helm wheel
+    name: "Kubernetes",
+    issuer: "CNCF / Coursera",
+    icon: "⚙️",
+    logoUrl: "https://cdn.simpleicons.org/kubernetes/ffffff",
+    logoBg: "#326ce5",
+  },
+  {
+    // Coursera: SimpleIcons white C-mark on Coursera blue
+    name: "Product Management Fundamentals",
+    issuer: "Coursera",
+    icon: "📋",
+    logoUrl: "https://cdn.simpleicons.org/coursera/ffffff",
+    logoBg: "#0056d2",
+  },
+  {
+    name: "Advanced Computer Networks",
+    issuer: "NPTEL",
+    icon: "🔗",
+    logoUrl: "/logo-nptel.png",
+    logoBg: "#ffffff",
+  },
+  {
+    // Coursera: same white C-mark on Coursera blue (different cert)
+    name: "Business Analytics with Excel",
+    issuer: "Coursera",
+    icon: "📊",
+    logoUrl: "https://cdn.simpleicons.org/coursera/ffffff",
+    logoBg: "#0056d2",
+  },
+  {
+    name: "Developer Virtual Experience",
+    issuer: "Accenture",
+    icon: "💡",
+    logoUrl: "/logo-accenture.png",
+    logoBg: "#ffffff",
+  },
+];
+
+const LANGUAGES = [
+  { name: "English", level: 100 },
+  { name: "Telugu", level: 95 },
+  { name: "Hindi", level: 90 },
+  { name: "Spanish", level: 60 },
+];
+
+// ─────────────────────────── NAVBAR ───────────────────────────
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const links = [
+    { label: "Impact", href: "#achievements" },
+    { label: "Experience", href: "#experience" },
+    { label: "Skills", href: "#skills" },
+    { label: "Education", href: "#education" },
+    { label: "Certifications", href: "#certifications" },
+  ];
+
+  const handleNavClick = () => setMenuOpen(false);
+
+  return (
+    <nav className={`navbar${scrolled ? " scrolled" : ""}`}>
+      <div className="nav-logo">
+        <span className="nav-logo-av">AV</span>
+      </div>
+
+      {/* Desktop links */}
+      <ul className="nav-links desktop-only">
+        {links.map((l) => (
+          <li key={l.label}>
+            <a href={l.href} className="nav-link">{l.label}</a>
+          </li>
+        ))}
+      </ul>
+
+      <div className="nav-right">
+        <a href={`mailto:${PROFILE.email}`} className="nav-cta desktop-only">
+          Hire Me
+        </a>
+        {/* Hamburger for mobile */}
+        <button
+          className="hamburger"
+          aria-label="Toggle menu"
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span className={`ham-line${menuOpen ? " open" : ""}`} />
+          <span className={`ham-line${menuOpen ? " open" : ""}`} />
+          <span className={`ham-line${menuOpen ? " open" : ""}`} />
+        </button>
+      </div>
+
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <div className="mobile-menu">
+          {links.map((l) => (
+            <a key={l.label} href={l.href} className="mobile-nav-link" onClick={handleNavClick}>
+              {l.label}
+            </a>
+          ))}
+          <a href={`mailto:${PROFILE.email}`} className="mobile-nav-cta" onClick={handleNavClick}>
+            Hire Me ✉️
+          </a>
+        </div>
+      )}
+    </nav>
+  );
+}
+
+// ─────────────────────────── HERO ───────────────────────────
+function HeroSection() {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <section className="hero" id="top">
+      <div className="hero-bg">
+        <div className="hero-grid" />
+        <div className="hero-glow-1" />
+        <div className="hero-glow-2" />
+      </div>
+
+      <div className="hero-content">
+        <div className="hero-badge">
+          <span className="badge-dot" />
+          Available for Product &amp; Engineering Roles
+        </div>
+
+        {/* Profile photo */}
+        <div className="hero-avatar">
+          <div className="avatar-ring">
+            {!imgError ? (
+              <img
+                src={PROFILE.photo}
+                alt="Akhil Vinnakota"
+                className="avatar-photo"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="avatar-fallback">{PROFILE.avatar}</div>
+            )}
+          </div>
+        </div>
+
+        <h1 className="hero-name">{PROFILE.name}</h1>
+        <p className="hero-title">{PROFILE.title}</p>
+        <p className="hero-location">📍 {PROFILE.location}</p>
+        <p className="hero-bio">{PROFILE.bio}</p>
+
+        <div className="hero-cta">
+          <a href={`mailto:${PROFILE.email}`} className="btn btn-primary">
+            ✉️ Get In Touch
+          </a>
+          <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="btn btn-outline">
+            🔗 LinkedIn
+          </a>
+          <a href={PROFILE.github} target="_blank" rel="noreferrer" className="btn btn-outline">
+            💻 GitHub
+          </a>
+        </div>
+
+        <div className="hero-contact-chips">
+          <span className="chip">📧 {PROFILE.email}</span>
+          <span className="chip">📞 {PROFILE.phone}</span>
+        </div>
+      </div>
+
+      <div className="hero-scroll-hint">
+        <div className="scroll-arrow" />
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────── ACHIEVEMENTS ───────────────────────────
+function AchievementsRow() {
+  return (
+    <section className="section" id="achievements">
+      <div className="section-header">
+        <span className="section-label">Product Impact</span>
+        <h2 className="section-title">Key Achievements</h2>
+      </div>
+      <div className="achievements-grid">
+        {ACHIEVEMENTS.map((a, i) => (
+          <div key={i} className="achievement-card" style={{ "--card-color": a.color }}>
+            <div className="achievement-icon">{a.icon}</div>
+            <div className="achievement-metric">{a.metric}</div>
+            <div className="achievement-label">{a.label}</div>
+            <p className="achievement-desc">{a.description}</p>
+            <div className="achievement-bg-glow" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────── EXPERIENCE (Timeline) ───────────────────────────
+function ExperienceRow() {
+  return (
+    <section className="section" id="experience">
+      <div className="section-header">
+        <span className="section-label">Career</span>
+        <h2 className="section-title">Work Experience</h2>
+      </div>
+
+      <div className="timeline">
+        {EXPERIENCE.map((e, i) => (
+          <div key={i} className="timeline-item">
+            {/* Left: dot + line */}
+            <div className="timeline-aside">
+              <div className="timeline-dot" style={{ "--dot-color": e.color }}>
+                {e.isCurrent && <div className="dot-pulse" style={{ "--dot-color": e.color }} />}
+              </div>
+              {i < EXPERIENCE.length - 1 && <div className="timeline-line" />}
+            </div>
+
+            {/* Right: card */}
+            <div className="timeline-card" style={{ "--card-color": e.color }}>
+              {e.isCurrent && <div className="current-label">Current Role</div>}
+
+              <div className="exp-card-header">
+                <div className="exp-header-left">
+                  <h3 className="exp-role">{e.role}</h3>
+                  <p className="exp-company-line">
+                    <span className="exp-company-name">{e.company}</span>
+                    <span className="exp-type-pill">{e.type}</span>
+                  </p>
+                </div>
+                <div className="exp-header-right">
+                  <span className="exp-period">{e.period}</span>
+                  <span className="exp-location">📍 {e.location}</span>
+                </div>
+              </div>
+
+              <ul className="exp-points">
+                {e.points.map((pt, j) => (
+                  <li key={j} className="exp-point">
+                    <span className="point-dot" style={{ background: e.color }} />
+                    {pt}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────── SKILLS ───────────────────────────
+function SkillsRow() {
+  const [activeCategory, setActiveCategory] = useState(Object.keys(SKILLS)[0]);
+
+  return (
+    <section className="section" id="skills">
+      <div className="section-header">
+        <span className="section-label">Technical Arsenal</span>
+        <h2 className="section-title">Skills & Expertise</h2>
+      </div>
+
+      <div className="skills-layout">
+        <div className="skills-categories">
+          {Object.keys(SKILLS).map((cat) => (
+            <button
+              key={cat}
+              className={`skill-category-btn${activeCategory === cat ? " active" : ""}`}
+              onClick={() => setActiveCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+        <div className="skills-tags-container">
+          <h4 className="skills-category-title">{activeCategory}</h4>
+          <div className="skills-tags">
+            {SKILLS[activeCategory].map((s, i) => (
+              <span key={i} className="skill-tag" style={{ animationDelay: `${i * 0.05}s` }}>
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="soft-skills-section">
+        <h4 className="soft-skills-title">Soft Skills</h4>
+        <div className="soft-skills-tags">
+          {SOFT_SKILLS.map((s, i) => (
+            <span key={i} className="soft-skill-tag">{s}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────── EDUCATION ───────────────────────────
+function EducationRow() {
+  return (
+    <section className="section" id="education">
+      <div className="section-header">
+        <span className="section-label">Academic Background</span>
+        <h2 className="section-title">Education</h2>
+      </div>
+      <div className="education-grid">
+        {EDUCATION.map((e, i) => (
+          <div key={i} className="edu-card" style={{ "--card-color": e.color }}>
+            <div className="edu-icon">{e.icon}</div>
+            <div>
+              <h3 className="edu-degree">{e.degree}</h3>
+              <p className="edu-institution">{e.institution}</p>
+              <div className="edu-meta">
+                <span className="edu-period">🗓 {e.period}</span>
+                <span className="edu-gpa">⭐ GPA: {e.gpa}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────── CERTIFICATIONS ───────────────────────────
+function CertLogo({ cert }) {
+  const [errored, setErrored] = useState(false);
+  if (errored) {
+    return <span className="cert-icon-fallback">{cert.icon}</span>;
+  }
+  return (
+    <div
+      className="cert-logo-wrap"
+      style={{ background: cert.logoBg }}
+    >
+      <img
+        src={cert.logoUrl}
+        alt={cert.issuer}
+        className="cert-logo-img"
+        onError={() => setErrored(true)}
+      />
+    </div>
+  );
+}
+
+function CertificationsRow() {
+  return (
+    <section className="section" id="certifications">
+      <div className="section-header">
+        <span className="section-label">Continuous Learning</span>
+        <h2 className="section-title">Certifications</h2>
+      </div>
+      <div className="certs-grid">
+        {CERTIFICATIONS.map((c, i) => (
+          <div key={i} className="cert-card">
+            <CertLogo cert={c} />
+            <div className="cert-text">
+              <p className="cert-name">{c.name}</p>
+              <p className="cert-issuer">{c.issuer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────── LANGUAGES ───────────────────────────
+function LanguagesRow() {
+  return (
+    <section className="section" id="languages">
+      <div className="section-header">
+        <span className="section-label">Communication</span>
+        <h2 className="section-title">Languages</h2>
+      </div>
+      <div className="languages-grid">
+        {LANGUAGES.map((l, i) => (
+          <div key={i} className="lang-card">
+            <div className="lang-name">{l.name}</div>
+            <div className="lang-bar-track">
+              <div
+                className="lang-bar-fill"
+                style={{ "--bar-width": `${l.level}%`, animationDelay: `${i * 0.15}s` }}
+              />
+            </div>
+            <span className="lang-pct">{l.level}%</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────── FOOTER ───────────────────────────
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footer-inner">
+        <div className="footer-avatar">
+          <img src={PROFILE.photo} alt="Akhil" className="footer-photo" onError={(e) => { e.target.style.display = "none"; }} />
+        </div>
+        <p className="footer-name">{PROFILE.name}</p>
+        <p className="footer-tagline">
+          Building intelligent products at the intersection of AI &amp; engineering.
+        </p>
+        <div className="footer-links">
+          <a href={`mailto:${PROFILE.email}`} className="footer-link">✉️ Email</a>
+          <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="footer-link">🔗 LinkedIn</a>
+          <a href={PROFILE.github} target="_blank" rel="noreferrer" className="footer-link">💻 GitHub</a>
+          <a href={`tel:${PROFILE.phone}`} className="footer-link">📞 Call</a>
+        </div>
+        <p className="footer-copy">
+          © {new Date().getFullYear()} {PROFILE.name} · Bengaluru, India
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+// ─────────────────────────── PAGE ───────────────────────────
+export default function Portfolio() {
+  return (
+    <main className="portfolio-main">
+      <Navbar />
+      <HeroSection />
+      <AchievementsRow />
+      <ExperienceRow />
+      <SkillsRow />
+      <EducationRow />
+      <CertificationsRow />
+      <LanguagesRow />
+      <Footer />
+    </main>
+  );
+}

@@ -13,7 +13,7 @@ const PROFILE = {
   phone: "+91-8143363736",
   linkedin: "https://www.linkedin.com/in/akhilvinnakota60/",
   github: "https://github.com/akhilvinnakota123-sketch",
-  bio: "MBA candidate and Software Engineer with strong product thinking, user-centric mindset, and experience driving AI-led automation initiatives. Skilled in defining KPIs, shaping feature requirements, and partnering across teams to deliver scalable, impactful products.",
+  bio: "MBA candidate, Software Engineer and Solo Founder who built and shipped Promptune, a Google-approved Chrome extension used by AI power users across India. Experienced in taking products from zero to live, defining KPIs, driving AI-led automation at Amadeus, and building with a deep user-centric mindset.",
   avatar: "AV",
   photo: "/profile.jpeg",
 };

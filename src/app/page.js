@@ -107,11 +107,12 @@ const EDUCATION = [
 ];
 
 const SKILLS = {
+  "Product & Entrepreneurship": ["Chrome Extension Dev", "Solo Founding", "User Research", "PRD Writing", "Roadmapping", "A/B Thinking", "Go-to-Market", "Chrome Web Store", "Compliance & Policy"],
   "Programming Languages": ["Java", "Python", "C", "JavaScript", "SQL", "HTML"],
-  "Frameworks": ["Spring Boot", "Quarkus", "Angular"],
+  "Frameworks": ["Spring Boot", "Quarkus", "Angular", "Next.js"],
   "Cloud & DevOps": ["Azure", "Docker", "Kubernetes", "Jenkins (CI/CD)"],
   "Databases & Integration": ["MongoDB", "SQL", "REST APIs", "JSON / XML / XSD", "Kafka"],
-  "AI & Automation": ["GenAI", "NLP Chatbots", "RAG Pipelines", "Productivity Copilots"],
+  "AI & Automation": ["GenAI", "NLP Chatbots", "RAG Pipelines", "Productivity Copilots", "Prompt Engineering"],
   "Tools": ["Git", "Postman", "JIRA", "Figma", "Excel Analytics"],
 };
 
@@ -210,6 +211,7 @@ function Navbar() {
 
   const links = [
     { label: "Impact", href: "#achievements" },
+    { label: "Promptune", href: "#promptune" },
     { label: "Experience", href: "#experience" },
     { label: "Skills", href: "#skills" },
     { label: "Education", href: "#education" },
@@ -325,6 +327,174 @@ function HeroSection() {
 
       <div className="hero-scroll-hint">
         <div className="scroll-arrow" />
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────── PROMPTUNE FEATURED PRODUCT ───────────────────────────
+function PromptuneSection() {
+  const [logoError, setLogoError] = useState(false);
+  const [mockupError, setMockupError] = useState(false);
+
+  const features = [
+    { icon: "✨", label: "Inline Enhancement", desc: "One-click prompt rewrite right inside ChatGPT, Claude & Gemini" },
+    { icon: "🇮🇳", label: "Indian Language AI", desc: "Auto-detects Hindi, Telugu, Tamil, Kannad, Hinglish — zero clicks" },
+    { icon: "🔁", label: "Rewrite Anywhere", desc: "Select any text on any page, right-click → Promptune Rewrite" },
+  ];
+
+  const stats = [
+    { value: "9+", label: "Tones" },
+    { value: "4", label: "AI Platforms" },
+    { value: "10+", label: "Languages" },
+    { value: "Live", label: "Google Approved" },
+  ];
+
+  const testimonials = [
+    { quote: "Saves me an hour a day — I just type 'reply yes' and click Professional.", tag: "Product Builder" },
+    { quote: "I write in Telugu-English and Promptune converts it into perfect system prompts for Claude.", tag: "Developer" },
+    { quote: "It hovers right inside the chat box. Totally frictionless.", tag: "Power User" },
+  ];
+
+  return (
+    <section className="section promptune-section" id="promptune">
+      {/* Header */}
+      <div className="section-header">
+        <span className="section-label">Solo Founder · Live Product</span>
+        <h2 className="section-title">Featured Project</h2>
+      </div>
+
+      {/* Hero card */}
+      <div className="pt-hero-card">
+        {/* Ambient glow orbs */}
+        <div className="pt-glow-1" />
+        <div className="pt-glow-2" />
+
+        {/* Top row: branding + live badges */}
+        <div className="pt-brand-row">
+          <div className="pt-logo-wrap">
+            {!logoError ? (
+              <img
+                src="/promptune-logo.png"
+                alt="Promptune Logo"
+                className="pt-logo-img"
+                onError={() => setLogoError(true)}
+              />
+            ) : (
+              <div className="pt-logo-fallback">P</div>
+            )}
+          </div>
+          <div className="pt-brand-info">
+            <h3 className="pt-product-name">Promptune</h3>
+            <p className="pt-product-tagline">Type Naturally, Prompt Perfectly</p>
+          </div>
+          <div className="pt-badges">
+            <span className="pt-badge pt-badge-live">🟢 Live on Chrome Web Store</span>
+            <span className="pt-badge pt-badge-founder">Solo Founder</span>
+          </div>
+        </div>
+
+        {/* Description */}
+        <p className="pt-description">
+          Promptune is a <strong>Google-approved Chrome extension</strong> that lives natively inside ChatGPT, Claude, Gemini & Perplexity.
+          It transforms raw, messy thoughts into expert-level prompts in 1 second — with unique support for 10+ Indian languages.
+          Built, shipped, and grown entirely as a solo founder.
+        </p>
+
+        {/* Stats strip */}
+        <div className="pt-stats-strip">
+          {stats.map((s, i) => (
+            <div key={i} className="pt-stat">
+              <div className="pt-stat-value">{s.value}</div>
+              <div className="pt-stat-label">{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Two-col: features + mockup */}
+        <div className="pt-main-cols">
+          {/* Features */}
+          <div className="pt-features-col">
+            <div className="pt-features-title">Core Differentiators</div>
+            {features.map((f, i) => (
+              <div key={i} className="pt-feature-item">
+                <div className="pt-feature-icon">{f.icon}</div>
+                <div>
+                  <div className="pt-feature-label">{f.label}</div>
+                  <div className="pt-feature-desc">{f.desc}</div>
+                </div>
+              </div>
+            ))}
+
+            {/* PM context */}
+            <div className="pt-pm-box">
+              <div className="pt-pm-box-title">Product Manager Lens</div>
+              <ul className="pt-pm-list">
+                <li>Identified prompt-quality as the #1 friction in AI adoption</li>
+                <li>Shipped v1 solo in 4 weeks; iterated from real user feedback</li>
+                <li>Prioritised Indian language support as a zero-competition moat</li>
+                <li>Navigated Chrome Web Store policy & compliance end-to-end</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Mockup */}
+          <div className="pt-mockup-col">
+            <div className="pt-mockup-frame">
+              <div className="pt-mockup-bar">
+                <span className="pt-dot red" />
+                <span className="pt-dot yellow" />
+                <span className="pt-dot green" />
+                <span className="pt-url-pill">promptune.in</span>
+              </div>
+              {!mockupError ? (
+                <img
+                  src="/promptune-mockup.png"
+                  alt="Promptune Extension UI"
+                  className="pt-mockup-img"
+                  onError={() => setMockupError(true)}
+                />
+              ) : (
+                <div className="pt-mockup-placeholder">
+                  <div style={{ fontSize: "3rem" }}>✨</div>
+                  <div style={{ color: "var(--blue-300)", fontWeight: 700, marginTop: "0.5rem" }}>Promptune</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>Chrome Extension</div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Testimonials */}
+        <div className="pt-testimonials">
+          {testimonials.map((t, i) => (
+            <div key={i} className="pt-testimonial">
+              <p className="pt-testimonial-quote">"{t.quote}"</p>
+              <span className="pt-testimonial-tag">{t.tag}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA row */}
+        <div className="pt-cta-row">
+          <a
+            href="https://chromewebstore.google.com/detail/kkganmnbkpcdkgkkgpobdlnlkanbldld"
+            target="_blank"
+            rel="noreferrer"
+            className="pt-cta-primary"
+          >
+            <img src="https://cdn.simpleicons.org/googlechrome/ffffff" alt="Chrome" className="pt-cta-chrome-icon" />
+            Add to Chrome — Free
+          </a>
+          <a
+            href="https://www.promptune.in"
+            target="_blank"
+            rel="noreferrer"
+            className="pt-cta-secondary"
+          >
+            🌐 Visit Website
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -583,6 +753,7 @@ export default function Portfolio() {
       <Navbar />
       <HeroSection />
       <AchievementsRow />
+      <PromptuneSection />
       <ExperienceRow />
       <SkillsRow />
       <EducationRow />

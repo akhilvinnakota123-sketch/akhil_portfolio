@@ -189,6 +189,20 @@ const CERTIFICATIONS = [
     logoUrl: "/logo-accenture.png",
     logoBg: "#ffffff",
   },
+  {
+    name: "Introduction to Applied Business Analytics",
+    issuer: "University of Illinois Urbana-Champaign",
+    icon: "📈",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Illinois_Fighting_Illini_logo.svg/1024px-Illinois_Fighting_Illini_logo.svg.png",
+    logoBg: "#13294B",
+  },
+  {
+    name: "Tools for Exploratory Data Analysis in Business",
+    issuer: "University of Illinois Urbana-Champaign",
+    icon: "🔍",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Illinois_Fighting_Illini_logo.svg/1024px-Illinois_Fighting_Illini_logo.svg.png",
+    logoBg: "#13294B",
+  },
 ];
 
 const LANGUAGES = [

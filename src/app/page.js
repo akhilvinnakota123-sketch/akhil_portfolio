@@ -134,14 +134,14 @@ const CERTIFICATIONS = [
     name: "Introduction to Applied Business Analytics",
     issuer: "University of Illinois Urbana-Champaign",
     icon: "📈",
-    logoUrl: "https://logo.clearbit.com/illinois.edu",
+    logoUrl: "/logo-uiuc.png",
     logoBg: "#ffffff",
   },
   {
     name: "Tools for Exploratory Data Analysis in Business",
     issuer: "University of Illinois Urbana-Champaign",
     icon: "🔍",
-    logoUrl: "https://logo.clearbit.com/illinois.edu",
+    logoUrl: "/logo-uiuc.png",
     logoBg: "#ffffff",
   },
   {

@@ -484,7 +484,16 @@ function PromptuneSection() {
             className="pt-cta-primary"
           >
             <img src="https://cdn.simpleicons.org/googlechrome/ffffff" alt="Chrome" className="pt-cta-chrome-icon" />
-            Add to Chrome — Free
+            Add to Chrome
+          </a>
+          <a
+            href="https://app.promptune.in"
+            target="_blank"
+            rel="noreferrer"
+            className="pt-cta-secondary"
+            style={{ borderColor: "rgba(59, 130, 246, 0.5)", color: "#fff", background: "rgba(59, 130, 246, 0.15)" }}
+          >
+            ✨ Try Web App
           </a>
           <a
             href="https://www.promptune.in"
@@ -492,7 +501,7 @@ function PromptuneSection() {
             rel="noreferrer"
             className="pt-cta-secondary"
           >
-            🌐 Visit Website
+            🌐 Website
           </a>
         </div>
       </div>

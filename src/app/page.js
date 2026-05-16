@@ -135,14 +135,14 @@ const CERTIFICATIONS = [
     issuer: "University of Illinois Urbana-Champaign",
     icon: "📈",
     logoUrl: "/logo-uiuc.png",
-    logoBg: "#ffffff",
+    logoBg: "#13294B",
   },
   {
     name: "Tools for Exploratory Data Analysis in Business",
     issuer: "University of Illinois Urbana-Champaign",
     icon: "🔍",
     logoUrl: "/logo-uiuc.png",
-    logoBg: "#ffffff",
+    logoBg: "#13294B",
   },
   {
     name: "Responsive Website Development",

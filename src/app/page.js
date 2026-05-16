@@ -13,7 +13,7 @@ const PROFILE = {
   phone: "+91-8143363736",
   linkedin: "https://www.linkedin.com/in/akhilvinnakota60/",
   github: "https://github.com/akhilvinnakota123-sketch",
-  bio: "MBA candidate, Software Engineer and Solo Founder who built and shipped Promptune, a Google-approved Chrome extension used by AI power users across India. Experienced in taking products from zero to live, defining KPIs, driving AI-led automation at Amadeus, and building with a deep user-centric mindset.",
+  bio: "MBA candidate, AI Product Developer and Solo Founder who built and shipped Promptune, a Google-approved Chrome extension used by AI power users across India. Experienced in taking products from zero to live, defining KPIs, driving AI-led automation at Amadeus, and building with a deep user-centric mindset.",
   avatar: "AV",
   photo: "/profile.jpeg",
 };
@@ -138,13 +138,6 @@ const CERTIFICATIONS = [
     logoBg: "transparent",
   },
   {
-    name: "Tools for Exploratory Data Analysis in Business",
-    issuer: "University of Illinois Urbana-Champaign",
-    icon: "🔍",
-    logoUrl: "/logo-uiuc.svg",
-    logoBg: "transparent",
-  },
-  {
     name: "Responsive Website Development",
     issuer: "University of London",
     icon: "🌐",
@@ -202,6 +195,13 @@ const CERTIFICATIONS = [
     icon: "💡",
     logoUrl: "/logo-accenture.png",
     logoBg: "#ffffff",
+  },
+  {
+    name: "Tools for Exploratory Data Analysis in Business",
+    issuer: "University of Illinois Urbana-Champaign",
+    icon: "🔍",
+    logoUrl: "/logo-uiuc.svg",
+    logoBg: "transparent",
   },
 ];
 

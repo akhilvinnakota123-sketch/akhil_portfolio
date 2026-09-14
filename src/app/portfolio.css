@@ -1987,7 +1987,7 @@ button {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 1.8rem;
+    padding: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1998,6 +1998,53 @@ button {
     transform: translateY(-4px);
     border-color: var(--border-hover);
     box-shadow: var(--shadow-hover);
+}
+
+.cs-card-body {
+    padding: 1.5rem 1.8rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.cs-image-frame {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    display: block;
+    background: #060d1f;
+    border-bottom: 1px solid var(--border);
+}
+
+.cs-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cs-card:hover .cs-card-img {
+    transform: scale(1.04);
+}
+
+.cs-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(6, 13, 31, 0) 50%, rgba(15, 31, 61, 0.95) 100%);
+    pointer-events: none;
+}
+
+.cs-title-link {
+    color: var(--text-white);
+    transition: color 0.2s ease;
+}
+
+.cs-title-link:hover {
+    color: var(--blue-400);
 }
 
 .cs-card-glow {

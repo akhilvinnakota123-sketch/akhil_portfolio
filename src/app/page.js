@@ -221,6 +221,7 @@ const CASE_STUDIES = [
     date: "Sep 2026",
     readTime: "5 min read",
     link: "https://www.linkedin.com/pulse/rapido-isnt-just-entering-food-delivery-its-idle-rider-vinnakota-u8ngc/",
+    image: "/case-studies/rapido.jpg",
     icon: "🛵",
     coverGlow: "rgba(234, 179, 8, 0.15)",
     badgeColor: "#eab308",
@@ -237,6 +238,7 @@ const CASE_STUDIES = [
     date: "Jun 2026",
     readTime: "4 min read",
     link: "https://www.linkedin.com/pulse/feature-quick-commerce-apps-dont-know-need-akhil-vinnakota-get1f/",
+    image: "/case-studies/quickcommerce.png",
     icon: "🛒",
     coverGlow: "rgba(16, 185, 129, 0.15)",
     badgeColor: "#10b981",
@@ -253,6 +255,7 @@ const CASE_STUDIES = [
     date: "Mar 2026",
     readTime: "3 min read",
     link: "https://www.linkedin.com/pulse/i-used-microsofts-meeting-ai-got-curious-how-works-heres-vinnakota-4ez9c/",
+    image: "/case-studies/meeting-ai.png",
     icon: "🤖",
     coverGlow: "rgba(99, 102, 241, 0.15)",
     badgeColor: "#6366f1",
@@ -269,6 +272,7 @@ const CASE_STUDIES = [
     date: "Feb 2026",
     readTime: "3 min read",
     link: "https://www.linkedin.com/pulse/opportunity-disappears-one-swipe-akhil-vinnakota-50l3c/",
+    image: "/case-studies/linkedin-ux.jpg",
     icon: "📱",
     coverGlow: "rgba(236, 72, 153, 0.15)",
     badgeColor: "#ec4899",
@@ -876,43 +880,57 @@ function CaseStudiesSection() {
           <div key={cs.id} className="cs-card">
             <div className="cs-card-glow" style={{ background: cs.coverGlow }} />
 
-            <div className="cs-card-header">
-              <span className="cs-badge" style={{ color: cs.badgeColor, borderColor: `${cs.badgeColor}45`, background: `${cs.badgeColor}15` }}>
-                {cs.icon} {cs.category}
-              </span>
-              <span className="cs-meta">{cs.readTime} · {cs.date}</span>
-            </div>
-
-            <h3 className="cs-title">{cs.title}</h3>
-            <p className="cs-subtitle">{cs.subtitle}</p>
-
-            <div className="cs-problem-box">
-              <span className="cs-box-label">🎯 Problem Statement</span>
-              <p className="cs-box-text">{cs.problem}</p>
-            </div>
-
-            <div className="cs-insight-box">
-              <span className="cs-box-label">💡 Key PM Takeaway &amp; Strategy</span>
-              <p className="cs-box-text">{cs.pmInsight}</p>
-            </div>
-
-            <div className="cs-competencies">
-              <div className="cs-comp-tags">
-                {cs.competencies.map((comp, idx) => (
-                  <span key={idx} className="cs-comp-tag">{comp}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="cs-card-footer">
-              <a
-                href={cs.link}
-                target="_blank"
-                rel="noreferrer"
-                className="cs-read-btn"
-              >
-                Read Article on LinkedIn ↗
+            {/* Cover Graphic */}
+            {cs.image && (
+              <a href={cs.link} target="_blank" rel="noreferrer" className="cs-image-frame">
+                <img src={cs.image} alt={cs.title} className="cs-card-img" />
+                <div className="cs-image-overlay" />
               </a>
+            )}
+
+            <div className="cs-card-body">
+              <div className="cs-card-header">
+                <span className="cs-badge" style={{ color: cs.badgeColor, borderColor: `${cs.badgeColor}45`, background: `${cs.badgeColor}15` }}>
+                  {cs.icon} {cs.category}
+                </span>
+                <span className="cs-meta">{cs.readTime} · {cs.date}</span>
+              </div>
+
+              <h3 className="cs-title">
+                <a href={cs.link} target="_blank" rel="noreferrer" className="cs-title-link">
+                  {cs.title}
+                </a>
+              </h3>
+              <p className="cs-subtitle">{cs.subtitle}</p>
+
+              <div className="cs-problem-box">
+                <span className="cs-box-label">🎯 Problem Statement</span>
+                <p className="cs-box-text">{cs.problem}</p>
+              </div>
+
+              <div className="cs-insight-box">
+                <span className="cs-box-label">💡 Key PM Takeaway &amp; Strategy</span>
+                <p className="cs-box-text">{cs.pmInsight}</p>
+              </div>
+
+              <div className="cs-competencies">
+                <div className="cs-comp-tags">
+                  {cs.competencies.map((comp, idx) => (
+                    <span key={idx} className="cs-comp-tag">{comp}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="cs-card-footer">
+                <a
+                  href={cs.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cs-read-btn"
+                >
+                  Read Article on LinkedIn ↗
+                </a>
+              </div>
             </div>
           </div>
         ))}

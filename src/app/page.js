@@ -212,6 +212,73 @@ const LANGUAGES = [
   { name: "Spanish", level: 60 },
 ];
 
+const CASE_STUDIES = [
+  {
+    id: "rapido-food-delivery",
+    title: "Rapido Isn't Just Entering Food Delivery. It's Monetizing Idle Rider Capacity.",
+    subtitle: "Product Strategy & Supply Economics Analysis",
+    category: "Strategy & Supply",
+    date: "Sep 2026",
+    readTime: "5 min read",
+    link: "https://www.linkedin.com/pulse/rapido-isnt-just-entering-food-delivery-its-idle-rider-vinnakota-u8ngc/",
+    icon: "🛵",
+    coverGlow: "rgba(234, 179, 8, 0.15)",
+    badgeColor: "#eab308",
+    problem: "Rapido launched 'Ownly' food delivery to compete with Swiggy & Zomato.",
+    pmInsight: "The core strategic asset isn't just food delivery—it's monetizing idle bike-taxi riders during off-peak commute hours (1–4 PM, 8–11 PM) to maximize rider hourly yield.",
+    competencies: ["Supply Economics", "Platform Strategy", "Fleet Utilization", "Competitive Analysis"],
+    keyMetrics: ["Rider Hourly Yield", "% Idle Fleet Capacity", "Order Fulfillment Cost"],
+  },
+  {
+    id: "quick-commerce-replenishment",
+    title: "The Feature Quick-Commerce Apps Don't Know They Need.",
+    subtitle: "User Psychology & Retention UX Teardown",
+    category: "Retention & UX",
+    date: "Jun 2026",
+    readTime: "4 min read",
+    link: "https://www.linkedin.com/pulse/feature-quick-commerce-apps-dont-know-need-akhil-vinnakota-get1f/",
+    icon: "🛒",
+    coverGlow: "rgba(16, 185, 129, 0.15)",
+    badgeColor: "#10b981",
+    problem: "Users run out of recurring household staples (e.g., hand wash) but delay reordering, placing fragmented orders over weeks.",
+    pmInsight: "Proposing a smart replenishment queue & predictive low-stock reminder loop for quick-commerce apps (Zepto, Blinkit) to lock in repeat purchase habits.",
+    competencies: ["Habit Loop Design", "Retention UX", "Teardown Analysis", "LTV Expansion"],
+    keyMetrics: ["Repeat Order Rate", "Order Frequency", "Customer LTV"],
+  },
+  {
+    id: "microsoft-meeting-ai",
+    title: "I Used Microsoft's Meeting AI, Then I Got Curious About How It Works. Here's Both.",
+    subtitle: "AI Product Architecture & Technical Teardown",
+    category: "GenAI Architecture",
+    date: "Mar 2026",
+    readTime: "3 min read",
+    link: "https://www.linkedin.com/pulse/i-used-microsofts-meeting-ai-got-curious-how-works-heres-vinnakota-4ez9c/",
+    icon: "🤖",
+    coverGlow: "rgba(99, 102, 241, 0.15)",
+    badgeColor: "#6366f1",
+    problem: "Productivity loss in long, wandering corporate meetings where key decisions & action items get lost.",
+    pmInsight: "Technical breakdown of Microsoft Copilot / Teams Meeting AI: STT audio pipeline, transcript processing, RAG summarization, action item extraction, and UX delivery.",
+    competencies: ["AI Product Specs", "RAG & NLP Architecture", "Technical PM", "Productivity UX"],
+    keyMetrics: ["Action Item Extraction Accuracy", "Meeting Catch-Up Time", "Feature Adoption"],
+  },
+  {
+    id: "linkedin-webview-ux",
+    title: "The Opportunity That Disappears With One Swipe",
+    subtitle: "Mobile WebView Funnel & Conversion Teardown",
+    category: "Friction & Conversion",
+    date: "Feb 2026",
+    readTime: "3 min read",
+    link: "https://www.linkedin.com/pulse/opportunity-disappears-one-swipe-akhil-vinnakota-50l3c/",
+    icon: "📱",
+    coverGlow: "rgba(236, 72, 153, 0.15)",
+    badgeColor: "#ec4899",
+    problem: "When users open external job/event Google Forms in LinkedIn mobile WebView and switch apps to copy info, the form resets and feed refreshes.",
+    pmInsight: "Torn-down user journey friction and proposed 5 product solutions: WebView session persistence, default browser preference, resume prompts, and profile auto-fill.",
+    competencies: ["Conversion Rate Optimization", "Funnel Drop-off Analysis", "Mobile Interaction UX", "Friction Elimination"],
+    keyMetrics: ["Form Completion Rate", "Session Reset Drop-off", "User Task Success"],
+  },
+];
+
 // ─────────────────────────── NAVBAR ───────────────────────────
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -226,6 +293,7 @@ function Navbar() {
   const links = [
     { label: "Impact", href: "#achievements" },
     { label: "Promptune", href: "#promptune" },
+    { label: "Case Studies", href: "#case-studies" },
     { label: "Experience", href: "#experience" },
     { label: "Skills", href: "#skills" },
     { label: "Education", href: "#education" },
@@ -769,6 +837,90 @@ function Footer() {
   );
 }
 
+// ─────────────────────────── CASE STUDIES & BLOGS ───────────────────────────
+function CaseStudiesSection() {
+  const [activeTab, setActiveTab] = useState("All");
+
+  const categories = ["All", "Strategy & Supply", "Retention & UX", "GenAI Architecture", "Friction & Conversion"];
+
+  const filteredStudies = activeTab === "All"
+    ? CASE_STUDIES
+    : CASE_STUDIES.filter((cs) => cs.category === activeTab);
+
+  return (
+    <section className="section case-studies-section" id="case-studies">
+      <div className="section-header">
+        <span className="section-label">Product Thinking &amp; Writing</span>
+        <h2 className="section-title">PM Case Studies &amp; Articles</h2>
+        <p className="section-subtitle">
+          Published analyses on market strategy, user psychology, conversion funnels, and AI product architecture.
+        </p>
+      </div>
+
+      {/* Filter Tabs */}
+      <div className="cs-tabs">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            className={`cs-tab-btn${activeTab === cat ? " active" : ""}`}
+            onClick={() => setActiveTab(cat)}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Case Studies Grid */}
+      <div className="cs-grid">
+        {filteredStudies.map((cs) => (
+          <div key={cs.id} className="cs-card">
+            <div className="cs-card-glow" style={{ background: cs.coverGlow }} />
+
+            <div className="cs-card-header">
+              <span className="cs-badge" style={{ color: cs.badgeColor, borderColor: `${cs.badgeColor}45`, background: `${cs.badgeColor}15` }}>
+                {cs.icon} {cs.category}
+              </span>
+              <span className="cs-meta">{cs.readTime} · {cs.date}</span>
+            </div>
+
+            <h3 className="cs-title">{cs.title}</h3>
+            <p className="cs-subtitle">{cs.subtitle}</p>
+
+            <div className="cs-problem-box">
+              <span className="cs-box-label">🎯 Problem Statement</span>
+              <p className="cs-box-text">{cs.problem}</p>
+            </div>
+
+            <div className="cs-insight-box">
+              <span className="cs-box-label">💡 Key PM Takeaway &amp; Strategy</span>
+              <p className="cs-box-text">{cs.pmInsight}</p>
+            </div>
+
+            <div className="cs-competencies">
+              <div className="cs-comp-tags">
+                {cs.competencies.map((comp, idx) => (
+                  <span key={idx} className="cs-comp-tag">{comp}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="cs-card-footer">
+              <a
+                href={cs.link}
+                target="_blank"
+                rel="noreferrer"
+                className="cs-read-btn"
+              >
+                Read Article on LinkedIn ↗
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ─────────────────────────── PAGE ───────────────────────────
 export default function Portfolio() {
   return (
@@ -777,6 +929,7 @@ export default function Portfolio() {
       <HeroSection />
       <AchievementsRow />
       <PromptuneSection />
+      <CaseStudiesSection />
       <ExperienceRow />
       <SkillsRow />
       <EducationRow />

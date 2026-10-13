@@ -7,66 +7,80 @@ import "./portfolio.css";
 // ─────────────────────────── DATA ───────────────────────────
 const PROFILE = {
   name: "Akhil Vinnakota",
-  title: "Product Developer & MBA Candidate",
+  title: "Product Manager at Paytm · MBA Candidate · Solo Founder",
   location: "Bengaluru, India",
   email: "akhilvinnakota123@gmail.com",
   phone: "+91-8143363736",
   linkedin: "https://www.linkedin.com/in/akhilvinnakota60/",
   github: "https://github.com/akhilvinnakota123-sketch",
-  bio: "MBA candidate, AI Product Developer and Solo Founder who built and shipped Promptune, a Google-approved Chrome extension used by AI power users across India. Experienced in taking products from zero to live, defining KPIs, driving AI-led automation at Amadeus, and building with a deep user-centric mindset.",
+  bio: "Product Manager at Paytm driving flight booking, supplier onboarding, and post-booking experiences. MBA candidate, AI Product Developer, and Solo Founder who built and shipped Promptune, a Google-approved Chrome extension used by AI power users across India. Experienced in defining KPIs, tracking 40+ metrics, and building with a deep user-centric mindset.",
   avatar: "AV",
   photo: "/profile.jpeg",
 };
 
 const ACHIEVEMENTS = [
   {
+    icon: "✈️",
+    metric: "Paytm",
+    label: "Product Manager",
+    description:
+      "Driving flight post-booking (cancellations, refunds, rescheduling), supply onboarding, and payment services across airline bookings at Paytm.",
+    color: "#3b82f6",
+  },
+  {
+    icon: "📊",
+    metric: "40+",
+    label: "KPIs Tracked",
+    description:
+      "Partnered with BI to standardize data pipelines tracking 40+ KPIs across cancellations, refunds, booking funnel, and post-booking processes.",
+    color: "#60a5fa",
+  },
+  {
     icon: "🚀",
     metric: "40%+",
     label: "Engagement Boost",
     description:
-      "Increased travel agent engagement by launching an AI productivity copilot, resulting in rapid user adoption.",
-    color: "#3b82f6",
-  },
-  {
-    icon: "⚡",
-    metric: "3d → 1h",
-    label: "QA Time Slashed",
-    description:
-      "Reduced QA validation time from 3 days to 1 hour by delivering a self-service XML validation tool adopted across teams.",
-    color: "#60a5fa",
+      "Increased travel agent engagement at Amadeus by launching an AI productivity copilot, resulting in rapid user adoption.",
+    color: "#93c5fd",
   },
   {
     icon: "🏆",
     metric: "Innovation Award",
     label: "Industry Recognition",
     description:
-      "Won the Innovation Award for building a self-service XML validation platform for nested XSDs.",
-    color: "#93c5fd",
-  },
-  {
-    icon: "📊",
-    metric: "KPIs",
-    label: "Metrics Defined",
-    description:
-      "Defined success metrics, KPIs, and prioritization criteria for automation and GenAI-led product initiatives.",
+      "Won the Innovation Award at Amadeus for building a self-service XML validation platform for nested XSDs.",
     color: "#bfdbfe",
   },
 ];
 
 const EXPERIENCE = [
   {
-    role: "Product Developer",
-    company: "Amadeus",
+    role: "Product Manager",
+    company: "Paytm",
     location: "Bengaluru, India",
-    period: "Jul 2024 – Present",
+    period: "Sep 2025 – Present",
     type: "Full-time",
     isCurrent: true,
     color: "#3b82f6",
     points: [
-      "Launched an AI-driven copilot chatbot for airline agents, increasing efficiency and driving higher user engagement.",
-      "Translated business objectives into scalable engineering solutions aligned with KPIs and product goals.",
-      "Developed data-driven automation workflows using GenAI, NLP, and RAG for operational intelligence.",
-      "Migrated microservices to Azure, improving reliability, scalability, and security.",
+      "Driving product development for flight post-booking processes including cancellations, refunds, rescheduling, ancillaries, and customer support workflows to improve customer experience and operational efficiency.",
+      "Driving supply-side initiatives, integrating multiple suppliers into the flight booking funnel and enabling seamless supply onboarding.",
+      "Standardizing data pipelines, partnering with the BI team to track 40+ KPIs across cancellations, refunds, and post-booking processes.",
+      "Working on domestic premium cabin offers and payment services across airline flight bookings to report conversions, transaction success, booking funnel, and revenue growth.",
+    ],
+  },
+  {
+    role: "AI Product Developer",
+    company: "Amadeus",
+    location: "Bengaluru, India",
+    period: "Jul 2024 – Sep 2025",
+    type: "Full-time",
+    isCurrent: false,
+    color: "#60a5fa",
+    points: [
+      "Led development of an AI copilot for travel agents, reducing resolution effort and increasing engagement by 40%.",
+      "Defined product metrics and reliability guidelines for airline travel operations.",
+      "Led end-to-end feature delivery from problem identification and requirements to rollout, adoption tracking, and impact assessment.",
       "Collaborated with engineering, product, and analytics teams to define performance metrics and track impact.",
     ],
   },
@@ -77,12 +91,11 @@ const EXPERIENCE = [
     period: "Jan 2024 – Jul 2024",
     type: "Internship",
     isCurrent: false,
-    color: "#60a5fa",
+    color: "#93c5fd",
     points: [
-      "Developed tools and microservices using Java, Quarkus, Python, and MongoDB.",
-      "Built a self-service XML validation platform for nested XSDs, improving efficiency and winning the Innovation Award.",
+      "Built a self-service XML validation platform for nested XSDs, improving team efficiency and winning the Innovation Award.",
+      "Developed internal tooling using Java, Quarkus, Python, and MongoDB, optimizing QA reliability.",
       "Defined success metrics, functional requirements, and delivery plans with product teams.",
-      "Improved API reliability and optimized validation logic across services.",
     ],
   },
 ];
@@ -369,7 +382,7 @@ function HeroSection() {
       <div className="hero-content">
         <div className="hero-badge">
           <span className="badge-dot" />
-          Available for Product &amp; Engineering Roles
+          Product Manager at Paytm &middot; Open to PM Opportunities
         </div>
 
         {/* Profile photo */}
